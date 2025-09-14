@@ -1,0 +1,26 @@
+[versions]
+avaje-jsonb = "3.7"
+guava = "33.3.1-jre"
+junit = "5.11.4"
+assertj = "4.0.0-M1"
+jspecify = "1.0.0"
+spotless = "7.2.1"
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+[libraries]
+# Avaje JSONB
+avaje-jsonb = { module = "io.avaje:avaje-jsonb", version.ref = "avaje-jsonb" }
+avaje-jsonb-generator = { module = "io.avaje:avaje-jsonb-generator", version.ref = "avaje-jsonb" }
+
+# Google Guava
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+# JUnit testing
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+# Testing libraries
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
