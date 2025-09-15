@@ -3,11 +3,13 @@ avaje-jsonb = "3.7"
 guava = "33.3.1-jre"
 junit = "5.11.4"
 assertj = "4.0.0-M1"
-jspecify = "1.0.0"
 spotless = "7.2.1"
+maven-publish = "0.34.0"
+palantirJavaFormat = "2.74.0"
 
 [plugins]
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 
 [libraries]
 # Avaje JSONB

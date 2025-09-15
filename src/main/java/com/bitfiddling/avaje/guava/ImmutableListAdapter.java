@@ -13,10 +13,13 @@ import java.lang.reflect.Type;
 /**
  * Custom JsonAdapter for Guava ImmutableList that implements ViewBuilderAware.
  * This adapter enables deserialization of ImmutableList fields in records that use avaje-jsonb.
+ *
+ * @param <T> the element type
  */
 @CustomAdapter
 public final class ImmutableListAdapter<T> implements JsonAdapter<ImmutableList<T>> {
 
+    /** Factory for creating ImmutableListAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, ImmutableList.class)) {
             return new ImmutableListAdapter<>(jsonb, Types.typeArguments(type));
@@ -26,6 +29,12 @@ public final class ImmutableListAdapter<T> implements JsonAdapter<ImmutableList<
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new ImmutableListAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public ImmutableListAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

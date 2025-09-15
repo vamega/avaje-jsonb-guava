@@ -10,9 +10,16 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava ImmutableBiMap.
+ *
+ * @param <K> the key type
+ * @param <V> the value type
+ */
 @CustomAdapter
 public final class ImmutableBiMapAdapter<K, V> implements JsonAdapter<ImmutableBiMap<K, V>> {
 
+    /** Factory for creating ImmutableBiMapAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, ImmutableBiMap.class)) {
             return new ImmutableBiMapAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +29,12 @@ public final class ImmutableBiMapAdapter<K, V> implements JsonAdapter<ImmutableB
 
     private final JsonAdapter<V> valueAdapter;
 
+    /**
+     * Creates a new ImmutableBiMapAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public ImmutableBiMapAdapter(Jsonb jsonb, Type[] types) {
         this.valueAdapter = jsonb.adapter(types[1]);
     }

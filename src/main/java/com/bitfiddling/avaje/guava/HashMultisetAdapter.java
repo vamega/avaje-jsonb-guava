@@ -10,9 +10,15 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava HashMultiset.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class HashMultisetAdapter<T> implements JsonAdapter<HashMultiset<T>> {
 
+    /** Factory for creating HashMultisetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, HashMultiset.class)) {
             return new HashMultisetAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +28,12 @@ public final class HashMultisetAdapter<T> implements JsonAdapter<HashMultiset<T>
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new HashMultisetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public HashMultisetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

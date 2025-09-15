@@ -10,9 +10,15 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava ImmutableMultiset.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class ImmutableMultisetAdapter<T> implements JsonAdapter<ImmutableMultiset<T>> {
 
+    /** Factory for creating ImmutableMultisetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, ImmutableMultiset.class)) {
             return new ImmutableMultisetAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +28,12 @@ public final class ImmutableMultisetAdapter<T> implements JsonAdapter<ImmutableM
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new ImmutableMultisetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public ImmutableMultisetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

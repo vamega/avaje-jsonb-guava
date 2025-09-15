@@ -10,9 +10,15 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava LinkedHashMultiset.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class LinkedHashMultisetAdapter<T> implements JsonAdapter<LinkedHashMultiset<T>> {
 
+    /** Factory for creating LinkedHashMultisetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, LinkedHashMultiset.class)) {
             return new LinkedHashMultisetAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +28,12 @@ public final class LinkedHashMultisetAdapter<T> implements JsonAdapter<LinkedHas
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new LinkedHashMultisetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public LinkedHashMultisetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

@@ -10,10 +10,16 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava ImmutableSortedMultiset.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class ImmutableSortedMultisetAdapter<T extends Comparable<T>>
         implements JsonAdapter<ImmutableSortedMultiset<T>> {
 
+    /** Factory for creating ImmutableSortedMultisetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, ImmutableSortedMultiset.class)) {
             return new ImmutableSortedMultisetAdapter<>(jsonb, Types.typeArguments(type));
@@ -23,6 +29,12 @@ public final class ImmutableSortedMultisetAdapter<T extends Comparable<T>>
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new ImmutableSortedMultisetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public ImmutableSortedMultisetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

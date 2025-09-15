@@ -10,9 +10,15 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava TreeMultiset.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class TreeMultisetAdapter<T extends Comparable<T>> implements JsonAdapter<TreeMultiset<T>> {
 
+    /** Factory for creating TreeMultisetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, TreeMultiset.class)) {
             return new TreeMultisetAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +28,12 @@ public final class TreeMultisetAdapter<T extends Comparable<T>> implements JsonA
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new TreeMultisetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public TreeMultisetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }

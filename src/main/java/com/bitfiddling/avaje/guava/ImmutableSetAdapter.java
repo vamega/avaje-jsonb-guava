@@ -10,9 +10,15 @@ import io.avaje.jsonb.Jsonb;
 import io.avaje.jsonb.Types;
 import java.lang.reflect.Type;
 
+/**
+ * JsonAdapter for Guava ImmutableSet.
+ *
+ * @param <T> the element type
+ */
 @CustomAdapter
 public final class ImmutableSetAdapter<T> implements JsonAdapter<ImmutableSet<T>> {
 
+    /** Factory for creating ImmutableSetAdapter instances. */
     public static final AdapterFactory FACTORY = (Type type, Jsonb jsonb) -> {
         if (Types.isGenericTypeOf(type, ImmutableSet.class)) {
             return new ImmutableSetAdapter<>(jsonb, Types.typeArguments(type));
@@ -22,6 +28,12 @@ public final class ImmutableSetAdapter<T> implements JsonAdapter<ImmutableSet<T>
 
     private final JsonAdapter<T> genericType;
 
+    /**
+     * Creates a new ImmutableSetAdapter.
+     *
+     * @param jsonb the Jsonb instance
+     * @param types the generic type arguments
+     */
     public ImmutableSetAdapter(Jsonb jsonb, Type[] types) {
         this.genericType = jsonb.adapter(types[0]);
     }
